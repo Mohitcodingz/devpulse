@@ -11,14 +11,33 @@ res.send('This is a HomePage')
 app.get('/api/health',(req,res,next)=>{
 res.send({status:'ok',project:'DevPulse'})
 })
-app.get('/api/repository/:owner/:repo',(req,res)=>{
-    const {owner,repo} = req.params;
-res.json({
-    owner,
-    repo,
-    fullName:`${owner}/${repo}`,
+
+app.get('/api/repository/:owner/:repo', async (req, res) => {
+    const { owner, repo } = req.params;
+
+    try {
+        const response = await fetch(
+            `https://api.github.com/repos/${owner}/${repo}`
+        );
+
+        if (!response.ok) {
+            return res.status(response.status).json({
+                error: 'Repository not found or GitHub API request failed'
+            });
+        }
+
+        const data = await response.json();
+
+        res.json(data);
+
+    } catch (error) {
+        res.status(500).json({
+            error: 'Failed to fetch repository data'
+        });
+    }
 });
-});
+
+
 const PORT  = process.env.PORT || 5000;
 app.listen(PORT,()=>{
     console.log(`http://localhost:${PORT}`)
