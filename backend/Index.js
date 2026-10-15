@@ -13,22 +13,31 @@ app.get('/api/health', (req, res, next) => {
 })
 
 app.get('/api/repository/:owner/:repo', async (req, res) => {
-    const { owner, repo } = req.params;
+    const base = 'https://www.github.com/repository/:owner/:repo';
     try {
-        const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
-        
-        if (!response.ok) {
-            return res.status(response.status).json({
-                error:'Repository not found'
+
+        const [repoResponse, contributionResponse, commitsResponse] = await Promise.all(fetch(base), fetch(`${base}/contribution`), fetch(`${base}/commits`));
+        if (!repoResponse || !contributionResponse || !commitsResponse) {
+            res.status(502).json({
+                errro: 'failed to get the details'
             })
         }
-        const data = await response.json();
-        res.json(data);
+        const [repository, contributors, commits] = await Promise.all([
+            repoResponse.json(),
+            contributionResponse.json(),
+            commitsResponse.json()
+        ])
+        res.json({
+            repository,
+            contributors,
+            commits
+        })
     }
     catch (error) {
-        res.status(500).json({
-            error:'Failed to fetch Repo Data'
-        });
+        res.status(201).json({
+            error: 'The fetching failed'
+        }
+        )
     }
 })
 
