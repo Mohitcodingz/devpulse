@@ -41,26 +41,26 @@ app.get('/api/repository/:owner/:repo', async (req, res) => {
         )
     }
 })
-app.get('/pokeapi.co/api/v2/:category/:pokeName',async (req, res) => {
-    try{
-        const { category, pokeName } = req.params;
-    const base = `https://pokeapi.co/api/v2/${category}/${pokeName}`;
-    const [categoryResponse, pokeNameResponse] =await Promise.all([fetch(base), fetch(`${base}/encounters`)])
-    if(!categoryResponse.ok || !pokeNameResponse.ok){
-        return res.status(200).json({
-            message:'failed to get the details.'
-        })
-    }
-    const [categoryFinal, pokeNameFinal] = await Promise.all([categoryResponse.json(),pokeNameResponse.json()]);
-    res.json({categoryFinal,pokeNameFinal});
-}
-catch(error){
-    console.log(error)
-res.status(500).json({
-    error:'try function for api poke failed.'
-})
-}
-})
+// app.get('/pokeapi.co/api/v2/:category/:pokeName',async (req, res) => {
+//     try{
+//         const { category, pokeName } = req.params;
+//     const base = `https://pokeapi.co/api/v2/${category}/${pokeName}`;
+//     const [categoryResponse, pokeNameResponse] =await Promise.all([fetch(base), fetch(`${base}/encounters`)])
+//     if(!categoryResponse.ok || !pokeNameResponse.ok){
+//         return res.status(200).json({
+//             message:'failed to get the details.'
+//         })
+//     }
+//     const [categoryFinal, pokeNameFinal] = await Promise.all([categoryResponse.json(),pokeNameResponse.json()]);
+//     res.json({categoryFinal,pokeNameFinal});
+// }
+// catch(error){
+//     console.log(error)
+// res.status(500).json({
+//     error:'try function for api poke failed.'
+// })
+// }
+// })
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
