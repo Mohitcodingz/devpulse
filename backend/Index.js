@@ -17,21 +17,42 @@ app.get('/api/repository/:owner/:repo', async (req, res) => {
     const base = `https://api.github.com/repos/${owner}/${repo}`;
     try {
 
-        const [repoResponse, contributorsResponse, commitsResponse] = await Promise.all([fetch(base), fetch(`${base}/contributors`), fetch(`${base}/commits`)]);
-        if (!repoResponse.ok || !contributorsResponse.ok || !commitsResponse.ok) {
-            return res.status(502).json({
-                error: 'failed to get the details'
-            })
-        }
-        const [repository, contributors, commits] = await Promise.all([
-            repoResponse.json(),
-            contributorsResponse.json(),
-            commitsResponse.json()
-        ])
-        res.json({
-            repository,
-            contributors,
-            commits
+        const results =  await Promise.allSettled([fetch(base), fetch(`${base}/contributors`), fetch(`${base}/commits`)])
+        // const [repoResponse, contributorsResponse, commitsResponse] = await Promise.all([fetch(base), fetch(`${base}/contributors`), fetch(`${base}/commits`)]);
+
+ const [repositoryResult, contributorsResult, commitsResult ] = results;
+let commits= null;
+let repository = null;
+let contributor = null
+
+if(repositoryResult.status === 'fulfilled' && repositoryResult.value.ok){
+     repository = await repositoryResult.value.json()
+}
+
+if(contributorsResult.status === 'fulfilled' && contributorsResult.value.ok){
+    contributor = await contributorsResult.value.json()
+}
+
+if(commitsResult.status === 'fulfilled' && commitsResult.value.ok){
+commits = await commitsResult.value.json()
+}
+
+        // if (!results.ok) {
+        //     console.log(results.status)
+        //     return res.status(502).json({
+        //         error: 'failed to get the details'
+        //     })
+        // }
+
+        // const [repository, contributors, commits] = await Promise.all([
+        //     repoResponse.json(),
+        //     contributorsResponse.json(),
+        //     commitsResponse.json()
+        // ])
+       
+
+        res.json({  
+         repository, contributor, commits 
         })
     }
     catch (error) {
