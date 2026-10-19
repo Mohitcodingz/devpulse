@@ -13,13 +13,14 @@ app.get('/api/health', (req, res, next) => {
 })
 
 app.get('/api/repository/:owner/:repo', async (req, res) => {
-    const base = 'https://api.github.com/repos/${owner}/${repo}';
+    const { owner, repo } = req.params;
+    const base = `https://api.github.com/repos/${owner}/${repo}`;
     try {
 
         const [repoResponse, contributorsResponse, commitsResponse] = await Promise.all([fetch(base), fetch(`${base}/contributors`), fetch(`${base}/commits`)]);
         if (!repoResponse.ok || !contributorsResponse.ok || !commitsResponse.ok) {
-           return res.status(502).json({
-                errro: 'failed to get the details'
+            return res.status(502).json({
+                error: 'failed to get the details'
             })
         }
         const [repository, contributors, commits] = await Promise.all([
@@ -34,13 +35,32 @@ app.get('/api/repository/:owner/:repo', async (req, res) => {
         })
     }
     catch (error) {
-       return  res.status(500).json({
+        return res.status(500).json({
             error: 'The fetching failed'
         }
         )
     }
 })
-
+app.get('/pokeapi.co/api/v2/:category/:pokeName',async (req, res) => {
+    try{
+        const { category, pokeName } = req.params;
+    const base = `https://pokeapi.co/api/v2/${category}/${pokeName}`;
+    const [categoryResponse, pokeNameResponse] =await Promise.all([fetch(base), fetch(`${base}/encounters`)])
+    if(!categoryResponse.ok || !pokeNameResponse.ok){
+        return res.status(200).json({
+            message:'failed to get the details.'
+        })
+    }
+    const [categoryFinal, pokeNameFinal] = await Promise.all([categoryResponse.json(),pokeNameResponse.json()]);
+    res.json({categoryFinal,pokeNameFinal});
+}
+catch(error){
+    console.log(error)
+res.status(500).json({
+    error:'try function for api poke failed.'
+})
+}
+})
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
