@@ -37,9 +37,9 @@ app.get('/api/repository/:owner/:repo', async (req, res) => {
             commits = await commitsResult.value.json()
         }
         
-        const topContributors = contributor  ? [...contributor].sort((a,b)=>{ return b.contributions - a.contributions}) :[]; 
+        const topContributors = contributor  ? [...contributor].sort((a,b)=>{ return b.contributions - a.contributions}) :[]; s``
 
-       
+       const formattedContributors = topContributors.map
         const stats = {
             stars: repository?.stargazers_count ?? 0,
             forks: repository?.forks_count ?? 0,
