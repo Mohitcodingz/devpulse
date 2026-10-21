@@ -2,7 +2,7 @@
     width: 100%;
     height: auto;
     background-color: rgb(58, 223, 196);
-padding-bottom: 80px;
+    padding-bottom: 80px;
 }
 
 .homepageHeadline {
@@ -16,7 +16,7 @@ padding-bottom: 80px;
 
 .homepageHeadline h1 {
     font-size: 70px;
-    color: black; 
+    color: black;
     width: 65%;
     text-align: center;
 }
@@ -29,15 +29,15 @@ padding-bottom: 80px;
     align-items: center;
 
 }
- 
+
 
 .dataFields input {
- width: 45%;   
- height: 75%;
- padding-left:50px ;    
+    width: 45%;
+    height: 75%;
+    padding-left: 50px;
 }
 
-.dataFields button{
+.dataFields button {
     height: 75%;
     width: 8%;
 }
