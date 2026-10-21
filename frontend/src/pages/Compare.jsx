@@ -1,6 +1,7 @@
 export default function Compare() {
-    return
+    return(
     <>
-     <h1>Compare Repositories</h1>;
+     <h1>Compare Repositories</h1>
     </>
+)
 }
