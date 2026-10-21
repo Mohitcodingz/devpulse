@@ -2,3 +2,7 @@ nav a.active{
     color:blue;
     font-weight: bold;
 }
+nav a{
+    text-decoration: none;
+    color: black;
+}
