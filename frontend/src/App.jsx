@@ -7,13 +7,13 @@ import Repository from "./pages/Repository";
  
 export default function App() {
   return (
-    <Routes>
-      <Route element={<Layout/>}>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/compare" element={<Compare />} />
-      <Route path="/about" element={<About/>} />
-      <Route path='/repository/:owner/:repo' element={<Repository/>}/>
-      </Route>
-    </Routes>
+      <Routes>
+        <Route element={<Layout/>}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/compare" element={<Compare />} />
+        <Route path="/about" element={<About/>} />
+        <Route path='/repository/:owner/:repo' element={<Repository/>}/>
+        </Route>
+      </Routes>
   );
 }
