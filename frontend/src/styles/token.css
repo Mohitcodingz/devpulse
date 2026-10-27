@@ -1,0 +1,47 @@
+/* src/styles/tokens.css */
+
+/* Default / Light Mode (Warm Amber & Charcoal) */
+:root {
+  /* Brand Accent */
+  --color-primary: #d97706;        /* Amber 600 */
+  --color-primary-hover: #b45309;  /* Amber 700 */
+
+  /* Backgrounds & Boxes (No pure white) */
+  --bg-base: #fef3c7;             /* Amber 100: Warm parchment background */
+  --bg-panel: #fde68a;            /* Amber 200: Sandstone main panels */
+  --bg-box-soft: #fcd34d;         /* Amber 300: Warm caramel container */
+  --bg-box-muted: #fbbf24;        /* Amber 400: Golden accent card */
+  --bg-box-heavy: #451a03;        /* Amber 950: Deep roasted coffee box */
+
+  /* Text Over Layers */
+  --text-on-base: #78350f;        /* Deep cognac brown for body */
+  --text-muted: #92400e;          /* Warm rust for placeholders & subtext */
+  --text-on-heavy: #fef3c7;       /* Cream text over the dark coffee box */
+
+  /* Borders */
+  --border-soft: #fcd34d;
+  --border-hard: #b45309;
+}
+
+/* Dark Mode Overrides */
+.dark {
+  /* Brand Accent */
+  --color-primary: #f59e0b;        /* Amber 500: Brighter for dark mode visibility */
+  --color-primary-hover: #fbbf24;  /* Amber 400 */
+
+  /* Backgrounds & Boxes */
+  --bg-base: #1c1917;             /* Stone 900: Deep warm charcoal background */
+  --bg-panel: #292524;            /* Stone 800: Elevated dark panels */
+  --bg-box-soft: #44403c;         /* Stone 700: Subtle highlight container */
+  --bg-box-muted: #57534e;        /* Stone 600: Distinct grey-brown card */
+  --bg-box-heavy: #fef3c7;        /* Amber 100: Inverse parchment box for high contrast */
+
+  /* Text Over Layers */
+  --text-on-base: #fdf6e3;        /* Warm off-white for crisp body readability */
+  --text-muted: #a8a29e;          /* Stone 400: Muted grey-brown subtext */
+  --text-on-heavy: #451a03;       /* Amber 950: Dark text over the inverse parchment box */
+
+  /* Borders */
+  --border-soft: #44403c;
+  --border-hard: #d97706;
+}
