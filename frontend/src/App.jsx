@@ -8,9 +8,6 @@ import Footer from './pages/Footer'
 export default function App() {
   return (
     <div>
-<<<<<<< HEAD
-      <h1>Hello, World!</h1>
-=======
       <Navbar />
       <Routes>
         <Route path='/' element={<HomePage />} />
@@ -18,7 +15,6 @@ export default function App() {
         <Route path='/Blog' element={<Blog />} />
       </Routes>
       <Footer/>
->>>>>>> 6f1126270f21224a17b36dcd2a4312a50caf934d
     </div>
   )
 }
