@@ -7,7 +7,7 @@ app.use(express.json());
 app.get('/health', (req, res) => {
     res.send('This is a Health Page')
 })
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     res.send('HomePagee')
 })
 app.get('/api/repository/:owner/:repo', async (req, res) => {
@@ -21,7 +21,22 @@ app.get('/api/repository/:owner/:repo', async (req, res) => {
         }
         const [baseResponse, commitsResponse, contributorsResponse] = await Promise.all([fetch(base), fetch(`${base}/commits`), fetch(`${base}/contributors`)]);
         const responses = [baseResponse, commitsResponse, contributorsResponse];
-        
+        const failedResponse = responses.find((e) => { return !e.ok });
+        if (failedResponse) {
+            if (failedResponse.status === 404) {
+                return res.status(404).json({
+                    message: 'Repository or resource not found!'
+                })
+            }
+            if (failedResponse.status === 403 || failedResponse.headers.get('x-ratelimit-remaining')==='0') {
+                return res.status(429).json({
+                    message: 'GitHub API rate limit exceeded'
+                })
+            }
+        return res.status(502).json({
+            message:'GitHub API request failed'
+        })
+        }
 
         // if (!baseResponse.ok || !commitsResponse.ok || !contributorsResponse.ok) {
         //     return res.status(404).json({
