@@ -8,7 +8,7 @@ app.get('/health', (req, res) => {
     res.send('This is a Health Page')
 })
 app.get('/', (req, res) => {
-    res.send('HomePagee')
+    res.send('HomePage')
 })
 app.get('/api/repository/:owner/:repo', async (req, res) => {
     try {
