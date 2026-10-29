@@ -12,34 +12,36 @@ app.get('/api/repository/:owner/:repo', async (req, res) => {
     try {
         const { owner, repo } = req.params;
         const base = `https://api.github.com/repos/${owner}/${repo}`
-const valid =  /^[a-zA-Z0-9._-]+$/;
+        const valid = /^[a-zA-Z0-9._-]+$/;
 
         if (!valid.test(owner) || !valid.test(repo)) {
-            return res.status(400).json({message:'The repository name or owner is misspelled'})
+            return res.status(400).json({ message: 'The repository name or owner is misspelled' })
         }
-        const [baseResponse, commitsResponse, contributorsResponse] = await Promise.all([fetch(base), fetch(`${base}/commits`), fetch(`${base}/contributors`)])
+        const [baseResponse, commitsResponse, contributorsResponse] = await Promise.all([fetch(base), fetch(`${base}/commits`), fetch(`${base}/contributors`)]);
+        const responses = [baseResponse, commitsResponse, contributorsResponse];
+        
 
-      
         // if (!baseResponse.ok || !commitsResponse.ok || !contributorsResponse.ok) {
         //     return res.status(404).json({
         //         message: 'Incorrect Data Unable to Fetch',  
         //     })
         // }
-if(!baseResponse.ok){
- return res.status(400).json({
-    message:'Problem encountered while fetching baseResponse'
- })   
-}
-if(!commitsResponse.ok){
- return res.status(400).json({
-    message:'Problem encountered while fetching commitsResponse'
- })   
-}
-if(!contributorsResponse.ok){
- return res.status(400).json({
-    message:'Problem encountered while fetching contributorsResponse'
- })   
-}
+
+        if (!baseResponse.ok) {
+            return res.status(400).json({
+                message: 'Problem encountered while fetching baseResponse'
+            })
+        }
+        if (!commitsResponse.ok) {
+            return res.status(400).json({
+                message: 'Problem encountered while fetching commitsResponse'
+            })
+        }
+        if (!contributorsResponse.ok) {
+            return res.status(400).json({
+                message: 'Problem encountered while fetching contributorsResponse'
+            })
+        }
         const [baseData, commitsData, contributorsData] = await Promise.all([baseResponse.json(), commitsResponse.json(), contributorsResponse.json()]);
 
         // if (baseData.private === true) {
