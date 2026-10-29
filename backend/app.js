@@ -28,14 +28,14 @@ app.get('/api/repository/:owner/:repo', async (req, res) => {
                     message: 'Repository or resource not found!'
                 })
             }
-            if (failedResponse.status === 403 || failedResponse.headers.get('x-ratelimit-remaining')==='0') {
+            if (failedResponse.status === 403 || failedResponse.headers.get('x-ratelimit-remaining') === '0') {
                 return res.status(429).json({
                     message: 'GitHub API rate limit exceeded'
                 })
             }
-        return res.status(502).json({
-            message:'GitHub API request failed'
-        })
+            return res.status(502).json({
+                message: 'GitHub API request failed'
+            })
         }
 
         // if (!baseResponse.ok || !commitsResponse.ok || !contributorsResponse.ok) {
@@ -80,3 +80,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`The server running in http://localhost:${PORT}`)
 })
+
+module.exports = app;
