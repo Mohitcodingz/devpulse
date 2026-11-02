@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../app');
-const { json } = require('express');
+
 // health route 200 status checked successfully
 describe('Health route', () => {
     test('200 status for Health Route', async () => {
@@ -60,7 +60,7 @@ describe('Repository API Route', () => {
         expect(response.status).toBe(429);
         expect(response.body.message).toBe('GitHub API rate limit exceeded');
     });
-    
+
     // Test successful repository response 200 related to the repositroy commits and contributors 
     test('should return repository, commits and contributors', async () => {
         const fetchMock = jest.spyOn(global, 'fetch');
@@ -97,7 +97,7 @@ describe('Repository API Route', () => {
                     contributions: 10
                 }
             ])
-        }); 
+        });
 
         const response = await request(app)
             .get('/api/repository/Mohitcodingz/DevPulse');
@@ -112,8 +112,13 @@ describe('Repository API Route', () => {
         expect(response.body.contributors[0].login)
             .toBe('Mohitcodingz');
     });
-
+    test('502 github repo is not working', async () => {
+jest.spyOn(global,'fetch').mockRejectedValue(new Error('Network Error'))
+        const response = await request(app).get('/api/repository/mohitcodingz/DevPulse');
+        // expect(response.text).toBe('Not Found');
+        expect(response.status).toBe(502);   
+    })
 })
 afterEach(() => {
- jest.restoreAllMocks()
+    jest.restoreAllMocks()
 })
