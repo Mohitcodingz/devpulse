@@ -16,7 +16,7 @@ export default function Statics() {
         {/* Stat Circle 1 */}
         <div className='bg-[var(--bg-panel)] border border-[var(--border-soft)] shadow-sm w-[200px] h-[200px] flex justify-center items-center flex-col rounded-full hover:border-[var(--color-primary)] hover:shadow-md transition-all'>
           <h3 className='text-[18px] text-[var(--text-muted)]'>Total Stars</h3>
-          <p className='text-[36px] font-bold text-[var(--color-primary)]'>0</p>
+          <p className='text-[36px] font-bold text-[var(--color-primary)]'> </p>
         </div>
 
         {/* Stat Circle 2 */}
