@@ -1,6 +1,10 @@
 import React from 'react';
 
-export default function Statics() {
+export default function Statics({ name = '---',
+  star = '---',
+  forks = '---',
+  issues = '---',
+  url = '---'}) {
   return (
     // Replaced hardcoded h-[550px] with py-24 for flexible vertical spacing
     // Used --bg-box-soft so this section slightly contrasts with the Hero's --bg-base
@@ -11,31 +15,37 @@ export default function Statics() {
         <p className='text-[var(--text-muted)]'>Get a quick overview of your repository's performance.</p>
       </div>
 
-      <div className='flex flex-row gap-15 items-center justify-center pt-16'>
+      <div className='flex flex-row gap-12 items-center justify-center pt-16'>
         
         {/* Stat Circle 1 */}
         <div className='bg-[var(--bg-panel)] border border-[var(--border-soft)] shadow-sm w-[200px] h-[200px] flex justify-center items-center flex-col rounded-full hover:border-[var(--color-primary)] hover:shadow-md transition-all'>
           <h3 className='text-[18px] text-[var(--text-muted)]'>Total Stars</h3>
-          <p className='text-[36px] font-bold text-[var(--color-primary)]'> </p>
+          <p className='text-[36px] font-bold text-[var(--color-primary)]'>{star} </p>
         </div>
 
         {/* Stat Circle 2 */}
         <div className='bg-[var(--bg-panel)] border border-[var(--border-soft)] shadow-sm w-[200px] h-[200px] flex justify-center items-center flex-col rounded-full hover:border-[var(--color-primary)] hover:shadow-md transition-all'>
           <h3 className='text-[18px] text-[var(--text-muted)]'>Total Forks</h3>
-          <p className='text-[36px] font-bold text-[var(--color-primary)]'>0</p>
+          <p className='text-[36px] font-bold text-[var(--color-primary)]'>{forks}</p>
         </div>
 
         {/* Stat Circle 3 */}
         <div className='bg-[var(--bg-panel)] border border-[var(--border-soft)] shadow-sm w-[200px] h-[200px] flex justify-center items-center flex-col rounded-full hover:border-[var(--color-primary)] hover:shadow-md transition-all'>
-          <h3 className='text-[18px] text-[var(--text-muted)]'>Total Commits</h3>
-          <p className='text-[36px] font-bold text-[var(--color-primary)]'>0</p>
+          <h3 className='text-[18px] text-[var(--text-muted)]'>Total Issues</h3>
+          <p className='text-[36px] font-bold text-[var(--color-primary)]'>{issues}</p>
         </div>
 
         {/* Stat Circle 4 */}
         <div className='bg-[var(--bg-panel)] border border-[var(--border-soft)] shadow-sm w-[200px] h-[200px] flex justify-center items-center flex-col rounded-full hover:border-[var(--color-primary)] hover:shadow-md transition-all'>
-          <h3 className='text-[18px] text-[var(--text-muted)]'>Total Contributors</h3>
-          <p className='text-[36px] font-bold text-[var(--color-primary)]'>0</p>
+          <h3 className='text-[18px] text-[var(--text-muted)]'>Repo's Name</h3>
+          <p className='text-[36px] font-bold text-[var(--color-primary)]'>{name}</p>
         </div>
+
+
+        {/* <div className='bg-[var(--bg-panel)] border border-[var(--border-soft)] shadow-sm w-[200px] h-[200px] flex justify-center items-center flex-col rounded-full hover:border-[var(--color-primary)] hover:shadow-md transition-all'>
+          <h3 className='text-[18px] text-[var(--text-muted)]'>  View GitHub Repository </h3>
+          <p className='text-[36px] font-bold text-[var(--color-primary)]'>{url}</p>
+        </div> */}
       </div>
     </section>
   );
