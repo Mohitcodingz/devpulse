@@ -11,9 +11,9 @@ export default function Hero({setDataValue}) {
       }
       const response = await fetch(`https://devpulse-ghsw.onrender.com/api/repository/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`)
 
-      if (!response.ok) { 
-        throw new Error('something went wrong!')
-      }
+      if (!response.ok) {
+  throw new Error(`Request failed: ${response.status} ${response.statusText}`);
+}
       const data = await response.json();
       setDataValue(data);
     }
