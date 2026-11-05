@@ -9,7 +9,7 @@ export default function Hero({setDataValue}) {
       if (!owner || !repo) {
         throw new Error('Please enter a valid owner/repo format')
       }
-      const response = await fetch(`http://localhost:5000/api/repository/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`)
+      const response = await fetch(`https://devpulse-ghsw.onrender.com/api/repository/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`)
 
       if (!response.ok) { 
         throw new Error('something went wrong!')
